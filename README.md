@@ -1,4 +1,20 @@
-#Automatic uploader for curseforge
+# Automatic uploader for curseforge #
+
+This program intended for Kerbal Space Program mod authors to be able to quickly and easily push updates to CurseForge. Currently there is only the command line program, but a GUI version is planned for the future.
+
+*Note: This was intended for the KSP CurseForge site. Theoretically it should work with other CurseForge sites, but it has not been thoroughly tested.*
+
+## Requirements ##
+
+1. CurseForge account - *Created here: https://www.curseforge.com/home/create/*
+2. CurseForge API Key - *Obtained here: http://kerbal.curseforge.com/my-api-tokens*
+3. An existing mod on CurseForge - *http://kerbal.curseforge.com/ksp-mods/create* (The official CurseForge API does not allow for creation of mods via API)
+
+## Usage ##
+
+### Method One - Command Line Arguments ###
+
+There are two methods to use this tool. The first method is purely command line, and can be executed from the mod's directory directly using all the flags. See below for all program flags:
 
 ````
 Usage:
@@ -38,6 +54,10 @@ Uploads build artifacts to Curseforge
   <file>
         The file to release to Curseforge
 ````
+
+### Method Two - curse.conf settings file ###
+
+If you push a lot of updates or update multiple mods, it might help to keep your settings in a curse.conf file.
 
 It first tries to load options from $HOME/curse.conf and curse.conf in the working directory. If you were to include this tool in your build script you could make a curse.conf in your home directory that looks like this:
 ````
