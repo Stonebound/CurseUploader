@@ -7,7 +7,8 @@ Usage:
   version1,version2,...,versionN  <file>
   
 Example:
-  java -jar curse.jar --key 12345678-1234-1234-1234-123456789 --mod 123456 --changelog "Added more bugs" --version 0.23.5,0.23,0.22 MyMod.zip
+  java -jar curse.jar --key 12345678-1234-1234-1234-123456789 --mod 123456
+    --changelog "Added more bugs" --version 0.23.5,0.23,0.22 MyMod.zip
 
 Uploads build artifacts to Curseforge
 
