@@ -2,13 +2,26 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>KSPModManager</groupId>
+	<groupId>ksp.modmanager</groupId>
 	<artifactId>KSPCurse-Manager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>KSPCurse-Manager</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/r04r/CurseUploader</url>
+
+	<licenses>
+		<license>
+			<name>Do What the Fuck You Want to Public License, Version 2</name>
+			<url>http://www.wtfpl.net/txt/copying</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/r04r/CurseUploader</url>
+		<connection>scm:git:https://github.com/r04r/CurseUploader.git</connection>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -3,6 +3,7 @@ package ksp.curse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -20,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.martiansoftware.jsap.FlaggedOption;
-import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.JSAPResult;
 import com.martiansoftware.jsap.Parameter;
@@ -64,9 +65,9 @@ public class Uploader {
 		return json;
 	}
 
-	public long uploadMod(String game, String apiKey, long modId, File file,
-			String changelog, ReleaseType releaseType, String... gameVersions)
-			throws IOException {
+	public long uploadMod(String game, String apiKey, long modId,
+			String filename, InputStream file, String changelog,
+			ReleaseType releaseType, String... gameVersions) throws IOException {
 		List<Long> versions = new ArrayList<>();
 		JSONArray actualVersions = getModVersions(game, apiKey);
 		for (String gameVersion : gameVersions) {
@@ -109,7 +110,7 @@ public class Uploader {
 		metadata.put("releaseType", releaseType.toString().toLowerCase());
 		metadata.put("gameVersions", versions);
 
-		FileBody uploadFilePart = new FileBody(file);
+		InputStreamBody uploadFilePart = new InputStreamBody(file, filename);
 		MultipartEntity reqEntity = new MultipartEntity();
 		reqEntity.addPart("file", uploadFilePart);
 		reqEntity.addPart("metadata", new StringBody(metadata.toString()));
@@ -203,10 +204,14 @@ public class Uploader {
 				.getProperty("user.home") + "/curse.conf", false));
 		jsap.registerDefaultSource(new PropertyDefaultSource("curse.conf",
 				false));
+		jsap.registerDefaultSource(new YamlDefaultStouce(System
+				.getProperty("user.home") + "/curse.yaml"));
+		jsap.registerDefaultSource(new YamlDefaultStouce("curse.yaml"));
 
 		JSAPResult config = jsap.parse(args);
 
 		if (jsap.messagePrinted()) {
+			System.out.println(config.getString("game"));
 			if (!config.getBoolean("help")) {
 				System.err.println();
 				System.err.println("Use --help for more information");
@@ -249,9 +254,9 @@ public class Uploader {
 
 		Uploader uploader = new Uploader();
 		long fileid = uploader.uploadMod(config.getString("game"),
-				config.getString("key"), mod, file,
-				config.getString("changelog"), releaseType,
-				config.getStringArray("version"));
+				config.getString("key"), mod, file.getName(),
+				new FileInputStream(file), config.getString("changelog"),
+				releaseType, config.getStringArray("version"));
 		System.out.println(fileid);
 	}
 }
