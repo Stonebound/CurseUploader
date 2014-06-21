@@ -204,9 +204,9 @@ public class Uploader {
 				.getProperty("user.home") + "/curse.conf", false));
 		jsap.registerDefaultSource(new PropertyDefaultSource("curse.conf",
 				false));
-		jsap.registerDefaultSource(new YamlDefaultStouce(System
+		jsap.registerDefaultSource(new YamlDefaultSource(System
 				.getProperty("user.home") + "/curse.yaml"));
-		jsap.registerDefaultSource(new YamlDefaultStouce("curse.yaml"));
+		jsap.registerDefaultSource(new YamlDefaultSource("curse.yaml"));
 
 		JSAPResult config = jsap.parse(args);
 

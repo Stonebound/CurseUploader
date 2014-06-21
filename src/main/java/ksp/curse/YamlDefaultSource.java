@@ -12,10 +12,10 @@ import com.martiansoftware.jsap.IDMap;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.JSAPResult;
 
-public class YamlDefaultStouce implements DefaultSource {
+public class YamlDefaultSource implements DefaultSource {
 	protected String yamlFile;
 
-	public YamlDefaultStouce(String yamlFile) {
+	public YamlDefaultSource(String yamlFile) {
 		this.yamlFile = yamlFile;
 	}
 
