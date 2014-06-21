@@ -70,3 +70,29 @@ And then you can use the program like `java -jar curse.jar -m MOD_ID -c CHANGE_L
 The game, key, mod, changelog, and release options also accept a file to read as a parameter. For example, if you have your changelog stored in changelog.txt you can use `-c "@changelog.txt"` to have it load from there.
 
 You can get your API key at http://kerbal.curseforge.com/my-api-tokens
+
+### Method Three - Jenkins
+
+Just search for Curseforge in your Jenkins addon manager, and install the plugin (Source can be found [here](https://github.com/jenkinsci/curseforge-publisher-plugin)). When configuring your project add the new Post-Build Action "Publish to Curseforge" and fill in your details.
+
+![example](http://i.imgur.com/RzTqejI.png)
+
+Hint: If you use Git you can add the following shell script as a build step to generate your changelog from your commit log:
+````
+tagfile="../${JOB_NAME}_LAST_COMMIT"
+changefile="../${JOB_NAME}_CHANGELOG"
+log="git log"
+changelog=""
+if [ -e "$tagfile" ]; then
+  changelog=$($log $(cat "$tagfile")..HEAD)
+else
+  changelog=$($log)
+fi
+if [ -n "$changelog" ]; then
+  echo "$changelog" > "$changefile"
+fi
+echo $(git rev-parse HEAD) > "$tagfile"
+cat "$changefile" > changelog.txt
+````
+
+And then use `@changelog.txt` as your changelog.
