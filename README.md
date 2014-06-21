@@ -95,4 +95,4 @@ echo $(git rev-parse HEAD) > "$tagfile"
 cat "$changefile" > changelog.txt
 ````
 
-And then use @changelog.txt as your changelog.
+And then use `@changelog.txt` as your changelog.
