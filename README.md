@@ -73,7 +73,7 @@ You can get your API key at http://kerbal.curseforge.com/my-api-tokens
 
 ### Method Three - Jenkins
 
-Just search for Curseforge in your Jenkins addon manager, and install the plugin (Source can be found [here](https://github.com/jenkinsci/curseforge-publisher-plugin)). When configuring your project add the new Post-Build Action "Publish to Curseforge" and fill in your details.
+Just search for [Curseforge Publisher plugin](https://wiki.jenkins-ci.org/display/JENKINS/Curseforge+Publisher+Plugin) in your Jenkins addon manager, and install the plugin (Source can be found [here](https://github.com/jenkinsci/curseforge-publisher-plugin)). When configuring your project add the new Post-Build Action "Publish to Curseforge" and fill in your details.
 
 ![example](http://i.imgur.com/RzTqejI.png)
 
