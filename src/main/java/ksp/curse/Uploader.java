@@ -66,7 +66,7 @@ public class Uploader {
 	}
 
 	public long uploadMod(String game, String apiKey, long modId,
-			String filename, InputStream file, String changelog,
+			String filename, InputStream file, String changelog, String parentid,
 			ReleaseType releaseType, String... gameVersions) throws IOException {
 		List<Long> versions = new ArrayList<>();
 		JSONArray actualVersions = getModVersions(game, apiKey);
@@ -106,9 +106,12 @@ public class Uploader {
 		JSONObject metadata = new JSONObject();
 		if (changelog == null)
 			changelog = "";
+
 		metadata.put("changelog", changelog);
 		metadata.put("releaseType", releaseType.toString().toLowerCase());
 		metadata.put("gameVersions", versions);
+		if (parentid != null)
+			metadata.put("parentFileID", parentid);
 
 		InputStreamBody uploadFilePart = new InputStreamBody(file, filename);
 		MultipartEntity reqEntity = new MultipartEntity();
@@ -183,6 +186,10 @@ public class Uploader {
 								.setRequired(false).setShortFlag('c')
 								.setLongFlag("changelog")
 								.setHelp("Changelog text for this release"),
+						new FlaggedOption("parentid").setStringParser(parser)
+								.setRequired(false).setShortFlag('p')
+								.setLongFlag("parentid")
+								.setHelp("ParentID for this release"),
 						new FlaggedOption("release").setStringParser(parser)
 								.setDefault("release").setRequired(true)
 								.setShortFlag('t').setLongFlag("type")
@@ -256,7 +263,7 @@ public class Uploader {
 		long fileid = uploader.uploadMod(config.getString("game"),
 				config.getString("key"), mod, file.getName(),
 				new FileInputStream(file), config.getString("changelog"),
-				releaseType, config.getStringArray("version"));
+				config.getString("parentid"), releaseType, config.getStringArray("version"));
 		System.out.println(fileid);
 	}
 }
